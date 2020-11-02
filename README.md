@@ -1,5 +1,5 @@
 # SQLite_TODO
-Modul 13.2 (REST)
+Modul 13.2 (SQLite)
 
 * Web application with REST API and SQLlite database that users can register e.g. household or other expanses. 
 * Install requirements: pip install -r requirements.txt
