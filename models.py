@@ -34,7 +34,7 @@ class Todos:
         self.conn.commit()
         return result.lastrowid
 
-    def update(self, id, data):
+    def update(self, data, id):
         sql = f''' UPDATE todos
                     SET title = ?, description = ?, done = ?
                     WHERE id = {id}'''
@@ -46,23 +46,31 @@ class Todos:
         except sqlite3.OperationalError as e:
             print(e)
 
+    def delete(self, conn, id):
+        """
+        Delete a task by task id
+        :param conn:  Connection to the SQLite database
+        :param id: id of the task
+        :return:
+        """
+        cur = conn.cursor()
+        to_delete = cur.execute('DELETE FROM todos WHERE id=?', (id,))
+        conn.commit()
+        return to_delete
+
     def delete_where(self, **kwargs):
-        qs = []
+        """
+        Delete from table where attributes from
+        :param conn:  Connection to the SQLite database
+        :param table: table name
+        :param kwargs: dict of attributes and values
+        :return: True
+        """
         values = tuple()
         for k, v in kwargs.items():
             qs.append(f"{k}=?")
             values += (v,)
         q = " AND ".join(qs)
 
-        sql = f'DELETE FROM todos WHERE {q}'
-        cur = self.conn.cursor()
-        cur.execute(sql, values)
-        self.conn.commit()
-        print("Deleted")
-
-
 database = "database.db"
 todos = Todos(database)
-
-if __name__ == "__main__":
-    todos = Todos("database.db")
