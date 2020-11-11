@@ -39,31 +39,11 @@ def todo_details(todo_id):
     return render_template("todo.html", form=form, todo_id=todo_id)
 
 # usuwa określone id z bazy danych
-@app.route("/todos/delete/<int:todo_id>", methods=["POST"])
+@app.route("/todos/<int:todo_id>/delete", methods=["POST"])
 def delete_todo(todo_id):
-    todo = todos.get(todo_id)
-    todo_dict = {
-        'title': todo[1],
-        'description': todo[2],
-        'done': todo[3]
-    }
-    form = TodoForm(data=todo_dict)
-
-    conn = sqlite3.connect('database.db')
-   
-    checked = request.form.get("delete_checkbox")
-    if request.method == "POST":
-        if form.validate_on_submit():
-            if checked is None:
-                todos.update(todo_id, tuple(form.data.values())[:3])
-                print('status UPDATE: ', checked, todo_id, conn)
-            elif checked == '1':
-                todos.delete(conn, todo_id)
-                print('status: ', checked, todo_id, conn)
-        return redirect(url_for("todos_list"))
-    return render_template("todo.html", form=form, todo_id=todo_id)
+    todos.delete(todo_id)
+    return redirect(url_for("todos_list"))
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-
