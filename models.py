@@ -39,38 +39,33 @@ class Todos:
                     SET title = ?, description = ?, done = ?
                     WHERE id = {id}'''
         print(id)
-
         try:
             self.cur.execute(sql, data)
             self.conn.commit()
         except sqlite3.OperationalError as e:
             print(e)
 
-    def delete(self, conn, id):
+    def update(self, data, id):
+        sql = f''' UPDATE todos
+                    SET title = ?, description = ?, done = ?
+                    WHERE id = {id}'''
+        print(id)
+        try:
+            self.cur.execute(sql, data)
+            self.conn.commit()
+        except sqlite3.OperationalError as e:
+            print(e)
+
+    def delete(self, id):
         """
         Delete a task by task id
         :param conn:  Connection to the SQLite database
         :param id: id of the task
         :return:
         """
-        cur = conn.cursor()
-        to_delete = cur.execute('DELETE FROM todos WHERE id=?', (id,))
-        conn.commit()
+        to_delete = self.cur.execute('DELETE FROM todos WHERE id=?', (id))
+        self.conn.commit()
         return to_delete
-
-    def delete_where(self, **kwargs):
-        """
-        Delete from table where attributes from
-        :param conn:  Connection to the SQLite database
-        :param table: table name
-        :param kwargs: dict of attributes and values
-        :return: True
-        """
-        values = tuple()
-        for k, v in kwargs.items():
-            qs.append(f"{k}=?")
-            values += (v,)
-        q = " AND ".join(qs)
 
 database = "database.db"
 todos = Todos(database)
