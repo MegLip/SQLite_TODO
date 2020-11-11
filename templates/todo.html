@@ -18,16 +18,8 @@
             {% endfor %}
         </table>
         <input type="submit" value="Ok">
+        <input type="submit" name="delete" value="Usuń">
     </form>
-    <h3> Usuń </h3>
-    <form method="POST" action="/todos/delete/{{ todo_id }}/">
-     
-        {{ form.hidden_tag() }}
-        <table>
-            <input type="checkbox" name="Usuwamy wybraną pozycję" value="1"> Zaznacz by usunąć
-            <br><br>
-            <input type="submit" value="Delete">
-        </table>>
-    </form>
+    
 </body>
 </html>
