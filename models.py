@@ -45,17 +45,6 @@ class Todos:
         except sqlite3.OperationalError as e:
             print(e)
 
-    def update(self, data, id):
-        sql = f''' UPDATE todos
-                    SET title = ?, description = ?, done = ?
-                    WHERE id = {id}'''
-        print(id)
-        try:
-            self.cur.execute(sql, data)
-            self.conn.commit()
-        except sqlite3.OperationalError as e:
-            print(e)
-
     def delete(self, id):
         """
         Delete a task by task id
