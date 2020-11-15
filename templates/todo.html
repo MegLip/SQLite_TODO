@@ -17,7 +17,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Update"> <a href="/todos/{{ todo_id }}/update/">Update</a>
+        <a href="/todos/{{ todo_id }}/update/"><input type="submit" value="Update"></a>
     </form>
 
     <h3> Usuń </h3>
@@ -32,7 +32,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Delete"> <a href="/todos/{{ todo_id }}/delete/">Delete</a>
+        <a href="/todos/{{ todo_id }}/delete/"><input type="submit" value="Delete"></a>
     </form>    
 </body>
 </html>
