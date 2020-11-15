@@ -3,7 +3,7 @@ from sqlite3 import Error
 
 
 class Todos:
-
+    # Łączymy się z bazą
     def __init__(self, database):
         self.conn = None
 
@@ -23,8 +23,8 @@ class Todos:
         result = self.cur.execute("SELECT * FROM todos")
         return result.fetchall()
 
-    def get(self, id):
-        result = self.cur.execute(f"SELECT * FROM todos WHERE id={id}")
+    def get(self, todo_id):
+        result = self.cur.execute(f"SELECT * FROM todos WHERE id={todo_id}")
         return result.fetchone()
 
     def create(self, data):
@@ -34,25 +34,25 @@ class Todos:
         self.conn.commit()
         return result.lastrowid
 
-    def update(self, data, id):
+    def update(self, data, todo_id):
         sql = f''' UPDATE todos
                     SET title = ?, description = ?, done = ?
-                    WHERE id = {id}'''
-        print(id)
+                    WHERE id={todo_id}'''
+        print(todo_id)
         try:
             self.cur.execute(sql, data)
             self.conn.commit()
         except sqlite3.OperationalError as e:
             print(e)
 
-    def delete(self, id):
+    def delete(self, todo_id):
         """
         Delete a task by task id
         :param conn:  Connection to the SQLite database
         :param id: id of the task
         :return:
         """
-        to_delete = self.cur.execute('DELETE FROM todos WHERE id=?', (id))
+        to_delete = self.cur.execute(f"DELETE FROM todos WHERE id={todo_id}")
         self.conn.commit()
         return to_delete
 
