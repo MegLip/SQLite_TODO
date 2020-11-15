@@ -9,13 +9,13 @@
 </head>
 
 <h2>Lista zadań</h2>
-
 <table>
     <thead>
     <th>ID</th>
     <th>Tytuł</th>
     <th>Opis</th>
     <th>Czy zrobione?</th>
+    <th>Co dalej?</th>
     </thead>
 {% for todo in todos %}
     <tr>
@@ -23,6 +23,7 @@
         <td><a href="/todos/{{ todo[0] }}">{{ todo[1] }}</a></td>
         <td>{{ todo[2] }}</td>
         <td>{{ todo[3] }}</td>
+        <td><a href="{{ todo[0] }}/update/">Edit</a> | <a href="{{ todo[0] }}/delete/">Delete</a></td>
     </tr>
 {% endfor %}
 </table>
