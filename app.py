@@ -16,7 +16,6 @@ def todos_list():
         if form.validate_on_submit():
             todos.create(tuple(form.data.values())[:3])
         return redirect(url_for("todos_list"))
-
     return render_template(
         "todos.html", form=form, todos=todos.all(), error=error)
 
@@ -38,8 +37,9 @@ def todo_details(todo_id):
         return redirect(url_for("todos_list"))
     return render_template("todo.html", form=form, todo_id=todo_id)
 
+
 # usuwa określone id z bazy danych
-@app.route("/todos/<int:todo_id>/delete", methods=["POST"])
+@app.route("/todos/<int:todo_id>/delete/", methods=["POST"])
 def delete_todo(todo_id):
     todos.delete(todo_id)
     return redirect(url_for("todos_list"))
