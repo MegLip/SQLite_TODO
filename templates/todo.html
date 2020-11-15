@@ -7,7 +7,7 @@
 <body>
     <h3> Zmień </h3>
     <form method="POST" action="/todos/{{ todo_id }}/">
-      
+
         {{ form.hidden_tag() }}
         <table>
             {% for field in form if field.widget.input_type != 'hidden' %}
@@ -17,7 +17,8 @@
                 </tr>
             {% endfor %}
         </table>
-        <a href="/todos/{{ todo_id }}/update/"><input type="submit" value="Update"></a>
+      
+        <a href="{{ url_for('todo_details', todo_id=todo_id) }}">Update</a>
     </form>
 
     <h3> Usuń </h3>
@@ -32,7 +33,8 @@
                 </tr>
             {% endfor %}
         </table>
-        <a href="/todos/{{ todo_id }}/delete/"><input type="submit" value="Delete"></a>
+        <a href="{{ url_for('delete_todo', todo_id=todo_id) }}">Delete</a>
     </form>    
 </body>
 </html>
+
