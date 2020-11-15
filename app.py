@@ -39,7 +39,7 @@ def todo_details(todo_id):
 
 
 # usuwa określone id z bazy danych
-@app.route("/todos/<int:todo_id>/delete/", methods=["POST"])
+@app.route("/todos/<int:todo_id>/delete/", methods=["GET"])
 def delete_todo(todo_id):
     todos.delete(todo_id)
     return redirect(url_for("todos_list"))
